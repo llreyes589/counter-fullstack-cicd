@@ -53,9 +53,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no \
           -i ~/.ssh/key \
-          ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
 
-            docker-compose -f docker-compose.prod.yml pull
+            docker-compose -f docker-compose.prod.yml pull &&
             docker-compose -f docker-compose.prod.yml up -d
-
-          EOF
