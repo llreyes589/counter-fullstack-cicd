@@ -58,6 +58,4 @@ jobs:
           ssh -o StrictHostKeyChecking=no \
           -i ~/.ssh/key \
           ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
-          "docker-compose -f docker-compose.prod.yml pull && \
-          docker-compose -f docker-compose.prod.yml down && \
-          docker-compose -f docker-compose.prod.yml up -d"
+          "cd /root/ && docker-compose -f docker-compose.prod.yml pull && docker-compose -f docker-compose.prod.yml down && docker-compose -f docker-compose.prod.yml up -d"
