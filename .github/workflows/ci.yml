@@ -49,11 +49,14 @@ jobs:
           echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/key
           chmod 600 ~/.ssh/key
 
+      - name: Add host to known_hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
       - name: Deploy to VPS
         run: |
           ssh -o StrictHostKeyChecking=no \
           -i ~/.ssh/key \
           ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
-
-            docker compose -f docker-compose.prod.yml pull &&
-            docker compose -f docker-compose.prod.yml up -d
+          "docker compose -f docker-compose.prod.yml pull && \
+          docker compose -f docker-compose.prod.yml up -d"
