@@ -55,7 +55,7 @@ jobs:
           -i ~/.ssh/key \
           ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
 
-            docker compose -f docker-compose.prod.yml pull
-            docker compose -f docker-compose.prod.yml up -d
+            docker-compose -f docker-compose.prod.yml pull
+            docker-compose -f docker-compose.prod.yml up -d
 
           EOF
