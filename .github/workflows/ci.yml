@@ -61,4 +61,4 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          "whoami && pwd && find / -name docker-compose.prod.yml 2>/dev/null"
+          "find / -name docker-compose.prod.yml 2>/dev/null"
