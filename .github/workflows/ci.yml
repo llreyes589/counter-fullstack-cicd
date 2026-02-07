@@ -57,9 +57,8 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no \
           -i ~/.ssh/key \
-          ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
-            cd /home
-            docker-compose pull
-            docker-compose down
-            docker-compose up -d
-          EOF
+          ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
+          "cd /root && \
+          docker-compose pull && \
+          docker-compose down && \
+          docker-compose up -d"
