@@ -61,7 +61,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "docker-compose.prod.yml" # Your compose file name
-          target: $TARGET_PATH # Remote directory path
+          target: /root/app # Remote directory path
 
       - name: Run docker compose up on remote server
         uses: appleboy/ssh-action@v1.0.3 # Use a marketplace action for SSH
@@ -70,7 +70,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd $TARGET_PATH
+            cd /root/app
             # Pull the latest images from the registry to ensure we have them
             docker compose pull
             # Stop the containers
