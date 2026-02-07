@@ -54,14 +54,8 @@ jobs:
         run: |
           ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Copy compose file to remote server
-        uses: appleboy/scp-action@v0.1.4 # Use a marketplace action for SCP
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          source: "docker-compose.prod.yml" # Your compose file name
-          target: /root/app # Remote directory path
+      # - name: Login to Registry
+      #   run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Run docker compose up on remote server
         uses: appleboy/ssh-action@v1.0.3 # Use a marketplace action for SSH
@@ -70,13 +64,11 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd /root/app
-            # Pull the latest images from the registry to ensure we have them
-            docker compose pull
-            # Stop the containers
-            docker compose down
-            # Start the containers in detached mode (-d)
-            docker compose up -d
+            cd /var/www/your-staging-app
+            docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            docker-compose pull
+            docker-compose up -d --no-deps your-app-service # Update the specified service
+            docker image prune -f # Clean up old images
 
       # - name: Remote and Deploy to VPS
       #   run: |
