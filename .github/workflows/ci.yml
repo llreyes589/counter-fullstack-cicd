@@ -66,8 +66,9 @@ jobs:
           script: |
             cd /root/
             docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker-compose pull
-            docker-compose up -d --no-deps your-app-service # Update the specified service
+            docker-compose -f docker-compose.prod.yml pull
+            docker-compose -f docker-compose.prod.yml down 
+            docker-compose -f docker-compose.prod.yml up -d
             docker image prune -f # Clean up old images
 
       # - name: Remote and Deploy to VPS
