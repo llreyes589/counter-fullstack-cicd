@@ -21,7 +21,7 @@ function App() {
   return (
     <div style={{ padding: 40 }}>
       <h1>Counter: {count}</h1>
-      <button onClick={increment}>-</button>
+      <button onClick={increment}>+</button>
     </div>
   );
 }
