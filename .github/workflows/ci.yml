@@ -53,12 +53,13 @@ jobs:
         run: |
           ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Remote to VPS
+      - name: Remote and Deploy to VPS
         run: |
           ssh -o StrictHostKeyChecking=no \
           -i ~/.ssh/key \
-          ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}
-
-      - name: Deploy to VPS
-        run: |
-          "find / -name docker-compose.prod.yml 2>/dev/null"
+          ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
+            cd /home
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d
+          EOF
