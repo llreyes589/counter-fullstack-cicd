@@ -58,7 +58,4 @@ jobs:
           ssh -o StrictHostKeyChecking=no \
           -i ~/.ssh/key \
           ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
-          "cd /root && \
-          docker-compose pull && \
-          docker-compose down && \
-          docker-compose up -d"
+          "pwd && ls"
