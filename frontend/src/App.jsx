@@ -20,8 +20,8 @@ function App() {
 
   return (
     <div style={{ padding: 40 }}>
-      <h1>Counter: {count}</h1>
-      <button onClick={increment}>+</button>
+      <h1 data-testid="count">Counter: {count}</h1>
+      <button onClick={increment}>Increment</button>
     </div>
   );
 }
