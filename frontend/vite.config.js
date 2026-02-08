@@ -3,6 +3,9 @@ import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    allowedHosts: ["les-counter.duckdns.org"],
+  },
   plugins: [react()],
   test: {
     // support `describe`, `test` etc. globally,

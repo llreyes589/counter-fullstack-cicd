@@ -15,7 +15,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      target: client-dev
+      target: client-build
     develop:
       watch:
         - path: ./src
@@ -24,8 +24,8 @@ services:
         - path: ./package.json
           action: rebuild
     labels:
-      traefik.http.routers.frontend.rule: Host(`les-counter.duckdns.org`)
-      traefik.http.services.frontend.loadbalancer.server.port: 5173
+      traefik.http.routers.frontend.rule: Host(`localhost`)
+      traefik.http.services.frontend.loadbalancer.server.port: 4173
 
     depends_on:
       - backend
