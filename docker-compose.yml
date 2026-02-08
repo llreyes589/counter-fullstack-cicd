@@ -1,12 +1,31 @@
 services:
+  proxy:
+    image: traefik:latest
+    command: --providers.docker=true
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
   backend:
     build: ./backend
     ports:
       - "4000:4000"
 
   frontend:
-    build: ./frontend
-    ports:
-      - "3000:80"
+    build:
+      context: ./frontend
+      target: client-dev
+    develop:
+      watch:
+        - path: ./src
+          action: sync
+          target: /app/src
+        - path: ./package.json
+          action: rebuild
+    labels:
+      traefik.http.routers.frontend.rule: Host(`les-counter.duckdns.org`)
+      traefik.http.services.frontend.loadbalancer.server.port: 5173
+
     depends_on:
       - backend
