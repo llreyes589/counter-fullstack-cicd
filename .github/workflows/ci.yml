@@ -11,7 +11,7 @@ env:
   TARGET_PATH: /root/app
 
 jobs:
-  build-and-push:
+  test-build-and-push:
     runs-on: ubuntu-latest
 
     permissions:
@@ -19,6 +19,9 @@ jobs:
       packages: write
 
     steps:
+      - name: Run Tests
+        run: npm test # Command to execute your project's tests
+
       - uses: actions/checkout@v4
 
       - name: Login to Registry
